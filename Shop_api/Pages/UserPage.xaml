@@ -1,0 +1,27 @@
+﻿<Page x:Class="Shop_api.UserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Shop_api"
+      mc:Ignorable="d" 
+      d:DesignHeight="425" d:DesignWidth="680"
+      Title="UserPage" Background="#FFD8D8D8">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Rectangle Fill="#FF31648F" IsHitTestVisible="False" Grid.Column="0" Grid.Row="0"/>
+        <Label Grid.Column="0" Grid.Row="0" Content="Přihlásit" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,65,0"></Label>
+        <Label Grid.Column="0" Grid.Row="0" Content="Registrovat" HorizontalAlignment="Right" VerticalAlignment="Bottom" ></Label>
+        <Label Grid.Column="0" Grid.Row="0" Content="Superkomp.cz" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" Background="#00000000" Foreground="#FFDEDEDE" Margin="25,0,0,0"></Label>
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <Button ></Button>
+        </StackPanel>
+    </Grid>
+</Page>

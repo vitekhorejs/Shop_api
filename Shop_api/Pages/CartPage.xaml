@@ -1,0 +1,57 @@
+﻿<Page x:Class="Shop_api.CartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Shop_api"
+      mc:Ignorable="d" 
+      d:DesignHeight="425" d:DesignWidth="680"
+      Title="CartPage" Background="#FFD8D8D8">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Rectangle Fill="#FF31648F" IsHitTestVisible="False" Grid.Column="0" Grid.Row="0"/>
+        <Grid x:Name="LoginPanel" Margin="472,0,0,0" Visibility="Hidden">
+            <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
+                <Hyperlink NavigateUri="LoginPage.xaml"   Foreground="#000000" TextDecorations="None" >Přihlásit </Hyperlink>
+                <Label></Label>
+                <Hyperlink NavigateUri="RegisterPage.xaml"   Foreground="#000000" TextDecorations="None"  >Registrovat </Hyperlink>
+            </TextBlock>
+        </Grid>
+
+        <Grid x:Name="UserPanel" Margin="472,0,0,0" Visibility="Visible">
+            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" Content=""  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,55,0"></Label>
+            <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
+                <Hyperlink Click="Logout_Click"  Foreground="#000000" TextDecorations="None" >Odhlásit </Hyperlink>
+            </TextBlock>
+        </Grid>
+        <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Left" VerticalAlignment="Center"   Margin="25,0,0,0">
+            <Hyperlink NavigateUri="MainPage.xaml" FontSize="22" FontWeight="Bold" Background="#00000000" Foreground="#FFDEDEDE" TextDecorations="None" >Superkomp.cz </Hyperlink>
+        </TextBlock>
+
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="0" MaxWidth="600">
+            <ListView Name="listview" Height="100">
+
+            </ListView>
+            <Label Content="Produkt název" FontWeight="Bold" FontSize="14"></Label>
+            <Label Content="cena"  FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0"></Label>
+            <Label Content="Produkt název" FontWeight="Bold" FontSize="14"></Label>
+            <Label Content="cena"  FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0"></Label>
+            <Label Content="Produkt název" FontWeight="Bold" FontSize="14"></Label>
+            <Label Content="cena"  FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0"></Label>
+            <Label Content="Celkem" FontWeight="Bold" FontSize="14" Foreground="#FF3362A4" Margin="0,10,0,0"></Label>
+            <Label Content="cena"  FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0" FontWeight="Bold"></Label>
+
+            <Button Content="Objednat" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5,0,0" FontWeight="Bold" FontSize="14" MinWidth="59" Width="85" Height="25"></Button>
+            <Label Content="Zpět k nákupu" Foreground="#FF3362A4" FontWeight="Bold" HorizontalContentAlignment="Right"></Label>
+
+
+        </StackPanel>
+    </Grid>
+</Page>

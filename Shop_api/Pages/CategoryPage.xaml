@@ -1,0 +1,73 @@
+﻿<Page x:Class="Shop_api.CategoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Shop_api"
+      mc:Ignorable="d" 
+      d:DesignHeight="425" d:DesignWidth="680"
+      Title="CategoryPage" Background="#FFD8D8D8">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!-- https://marvelapp.com/project/1910449/    https://projects.invisionapp.com/d/signup   https://wpftutorial.net/WrapPanel.html   https://wpf.2000things.com/2014/02/25/1016-displaying-a-collection-of-items-in-a-wrappanel/   http://stackoverflow.com/questions/17979106/can-use-a-wrappanel-with-datatemplate-for-horizontal-alignment-of-items-in-a-lis -->
+        <Rectangle Fill="#FF31648F" IsHitTestVisible="False" Grid.Column="0" Grid.Row="0"/>
+
+        <Grid x:Name="LoginPanel" Margin="472,0,0,0" Visibility="Hidden">
+            <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
+                <Hyperlink NavigateUri="LoginPage.xaml"   Foreground="#000000" TextDecorations="None" >Přihlásit </Hyperlink>
+                <Label></Label>
+                <Hyperlink NavigateUri="RegisterPage.xaml"   Foreground="#000000" TextDecorations="None"  >Registrovat </Hyperlink>
+            </TextBlock>
+        </Grid>
+
+        <Grid x:Name="UserPanel" Margin="472,0,0,0" Visibility="Visible">
+            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" Content=""  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,55,0"></Label>
+            <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
+                <Hyperlink Click="Logout_Click"  Foreground="#000000" TextDecorations="None" >Odhlásit </Hyperlink>
+            </TextBlock>
+        </Grid>
+
+        <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Left" VerticalAlignment="Center"   Margin="25,0,0,0">
+            <Hyperlink NavigateUri="MainPage.xaml" FontSize="22" FontWeight="Bold" Background="#00000000" Foreground="#FFDEDEDE" TextDecorations="None" >Superkomp.cz </Hyperlink>
+        </TextBlock>
+        <Button Grid.Column="0" Grid.Row="1" Content="Zpět" Width="35" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0" Click="Back_Click"></Button>
+        <Label x:Name="CategoryName" Content="" FontSize="30"  Margin="60,-5,0,0" Grid.Column="0" Grid.Row="1"></Label>
+        <Label x:Name="Info" Content="*Pro možnost nákupu se nejdříve přihlašte. Bez příhlášení je dostupné pouze prohlížení položek." FontSize="9"  Margin="20,-5,0,0" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
+
+        <ListBox Name="ic"  Margin="20,45,20,20" Grid.Column="0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+            <ListBox.ItemTemplate>
+                <DataTemplate >
+                    <Grid Margin="5" Background="#FFBBCFE2" MouseLeftButtonUp="Item_Clicked">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="130" />
+                            <RowDefinition Height="70" />
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Column="0" Margin="0,10,0,0" Grid.Row="0" Source="{Binding ImageSource}" Height="120"/>
+                        <Label Grid.Column="0" Grid.Row="1" Content="{Binding Name}" FontSize="20" HorizontalAlignment="Center" />
+                        <Label Grid.Column="0" Grid.Row="1" Content="{Binding Price}" Margin="0,30,0,0" Foreground="#FF03133E" FontSize="14" HorizontalAlignment="Center" />
+                        <Label Grid.Column="0" Grid.Row="1" Content="Cena:" Margin="0,30,0,0" Foreground="#FF03133E" FontSize="14" HorizontalAlignment="Left" />
+                        <Label Grid.Column="0" Grid.Row="1" Content="Kč" Margin="0,30,0,0" Foreground="#FF03133E" FontSize="14" HorizontalAlignment="Right" />
+                        <!--<Button Margin="5" Grid.Column="0" Grid.Row="1" Content="Koupit" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"></Button>-->
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+    </Grid>
+</Page>

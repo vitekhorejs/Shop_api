@@ -16,15 +16,17 @@ using System.Windows.Shapes;
 namespace Shop_api
 {
     /// <summary>
-    /// Interakční logika pro MainWindow.xaml
+    /// Interakční logika pro CartPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CartPage : Page
     {
-        public MainWindow()
+        public CartPage()
         {
             InitializeComponent();
-            MainPage MainPage = new MainPage();
-            frame.NavigationService.Navigate(MainPage);
+        }
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

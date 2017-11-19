@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace Shop_api
 {
     /// <summary>
-    /// Interakční logika pro MainWindow.xaml
+    /// Interakční logika pro UserPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UserPage : Page
     {
-        public MainWindow()
+        public UserPage()
         {
             InitializeComponent();
-            MainPage MainPage = new MainPage();
-            frame.NavigationService.Navigate(MainPage);
         }
     }
 }

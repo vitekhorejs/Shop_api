@@ -95,7 +95,7 @@ namespace Shop_api
             }
             else
             {
-                var client = new RestClient(Shared.GetUrl());
+                var client = new RestClient(Shared.Url);
                 //string txt = SimpleJson.SerializeObject(user);
                 //text.Text = txt;
                 var request = new RestRequest(Method.POST);

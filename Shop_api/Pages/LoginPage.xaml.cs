@@ -68,7 +68,7 @@ namespace Shop_api
             }
             else
             {
-                var client = new RestClient(Shared.GetUrl());
+                var client = new RestClient(Shared.Url);
                 var request = new RestRequest(Method.POST);
                 request.AddParameter("Type", "login");
                 request.AddParameter("Data", SimpleJson.SerializeObject(user));

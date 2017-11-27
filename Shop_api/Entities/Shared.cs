@@ -45,9 +45,10 @@ namespace Shop_api
             
         }
 
-        public static string GetUrl()
+        /*public static string GetUrl()
         {
            return  "https://student.sps-prosek.cz/~horejvi14/shop/";
-        }
+        }*/
+        public static string Url = "https://student.sps-prosek.cz/~horejvi14/shop/";
     }
 }

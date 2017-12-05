@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RestSharp;
 
 namespace Shop_api
 {
@@ -23,9 +24,18 @@ namespace Shop_api
         public MainPage()
         {
             InitializeComponent();
+            IsLogged();
         }
-
-
+        RestClient client = new RestClient(Shared.Url);
+        public void IsLogged()
+        {
+            
+            if (Shared.logged)
+            {
+                client.CookieContainer = Shared.cookiecon;
+            }
+        }
+        
         private void Register_Button(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new RegisterPage());
@@ -43,6 +53,12 @@ namespace Shop_api
         private void Item_Clicked(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void showsessionid(object sender, RoutedEventArgs e)
+        {
+            var request = new RestRequest(Method.GET);
+            var response = client.Execute(request);
+            MessageBox.Show(response.Content, ":)", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

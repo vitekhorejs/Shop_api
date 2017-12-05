@@ -39,6 +39,8 @@
             <Label Content="Heslo" FontWeight="Bold" FontSize="14"></Label>
             <PasswordBox x:Name="Password" PasswordChanged="OnPasswordChanged" Width="500" FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0"></PasswordBox>
             <Button Content="Přihlásit" HorizontalAlignment="Center" Click="Login_Click" VerticalAlignment="Center" Margin="0,30,0,0" FontWeight="Bold" FontSize="14" Width="80" Height="25"></Button>
+            <Button Content="zobrazit sessionID" HorizontalAlignment="Center" Click="showsessionid" VerticalAlignment="Center" Margin="0,30,0,0" FontWeight="Bold" FontSize="14" Width="150" Height="25"></Button>
+            <Button Content="odhlásit" HorizontalAlignment="Center" Click="logout" VerticalAlignment="Center" Margin="0,30,0,0" FontWeight="Bold" FontSize="14" Width="80" Height="25"></Button>
 
         </StackPanel>
     </Grid>

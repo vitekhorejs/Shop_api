@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RestSharp;
+using System.Net;
 
 namespace Shop_api
 {
@@ -22,10 +23,12 @@ namespace Shop_api
     public partial class LoginPage : Page
     {
         User user = new User();
+        RestClient client = new RestClient(Shared.Url);
         public LoginPage()
         {
             InitializeComponent();
             DataContext = user;
+            
         }
 
         bool IsValidEmail(string email)
@@ -68,10 +71,11 @@ namespace Shop_api
             }
             else
             {
-                var client = new RestClient(Shared.Url);
+                //var client = new RestClient(Shared.Url);
                 var request = new RestRequest(Method.POST);
                 request.AddParameter("Type", "login");
                 request.AddParameter("Data", SimpleJson.SerializeObject(user));
+
                 var response = client.Execute<Input>(request);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -80,13 +84,50 @@ namespace Shop_api
                     //User uzivatel = SimpleJson.DeserializeObject
                     //MessageBox.Show(response.Data.Data, "nevim", MessageBoxButton.OK, MessageBoxImage.Warning);
                     //MessageBox.Show(user1.Id.ToString(), "nevim", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    CookieContainer cookiecon = new CookieContainer();
+                    Input responze = SimpleJson.DeserializeObject<Input>(response.Content);
+                    if (response.StatusCode == HttpStatusCode.OK || responze.Type.Equals("data"))
+                    {
+                        var cookie = response.Cookies.FirstOrDefault();
+                       Shared.cookiecon.Add(new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
+                    }
+
+                    client.CookieContainer = Shared.cookiecon;
                 }
                 else
                 {
                     MessageBox.Show("Při komunikaci se serverem došlo k chybě.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                /*CookieContainer _cookieJar = new CookieContainer();
+                var sessionCookie = response.Cookies.SingleOrDefault(x => x.Name == "ASP.NET_SessionId");
+                if (sessionCookie != null)
+                {
+                    _cookieJar.Add(new Cookie(sessionCookie.Name, sessionCookie.Value, sessionCookie.Path, sessionCookie.Domain));
+                }*/
+                
+
+                //var client2 = new RestClient(Shared.Url);
+                
+
             }
             
+        }
+        private void showsessionid(object sender, RoutedEventArgs e)
+        {
+            var request2 = new RestRequest(Method.GET);
+            var response2 = client.Execute(request2);
+            MessageBox.Show(response2.Content, ":)", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        private void logout(object sender, RoutedEventArgs e)
+        {
+            var request2 = new RestRequest(Method.POST);
+            var response2 = client.Execute(request2);
+            request2.AddParameter("Type", "logout");
+            request2.AddParameter("Data", "");
+            //MessageBox.Show(response2.Content, ":)", MessageBoxButton.OK, MessageBoxImage.Error);
+            client.CookieContainer = null;
+            Shared.cookiecon = null;
+            Shared.logged = false;
         }
     }
 }

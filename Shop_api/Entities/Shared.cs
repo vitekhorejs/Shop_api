@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using RestSharp;
+using System.Net;
 
 namespace Shop_api
 {
@@ -44,7 +45,8 @@ namespace Shop_api
             }
             
         }
-
+        public static CookieContainer cookiecon;
+        public static bool logged;
         /*public static string GetUrl()
         {
            return  "https://student.sps-prosek.cz/~horejvi14/shop/";

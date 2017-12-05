@@ -41,6 +41,7 @@
             <Hyperlink NavigateUri="MainPage.xaml" FontSize="22" FontWeight="Bold" Background="#00000000" Foreground="#FFDEDEDE" TextDecorations="None" >Superkomp.cz </Hyperlink>
         </TextBlock>
 
+        <Button Content="zobrazit sessionID" HorizontalAlignment="Center" Click="showsessionid" VerticalAlignment="Center" Margin="0,30,0,0" FontWeight="Bold" FontSize="14" Width="150" Height="25"></Button>
 
         <Label Content="Kategorie" FontSize="30"  Margin="20,-5,0,0" Grid.Column="0" Grid.Row="1"></Label>
         <Label x:Name="Info" Content="*Pro možnost nákupu se nejdříve přihlašte. Bez příhlášení je dostupné pouze prohlížení položek." FontSize="9"  Margin="20,-5,0,0" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>

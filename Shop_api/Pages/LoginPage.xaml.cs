@@ -89,7 +89,10 @@ namespace Shop_api
                     if (response.StatusCode == HttpStatusCode.OK || responze.Type.Equals("data"))
                     {
                         var cookie = response.Cookies.FirstOrDefault();
-                       Shared.cookiecon.Add(new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
+                        Shared.cookiecon.Add(new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
+                        User usr = SimpleJson.DeserializeObject<User>(responze.Data);
+                        //Shared.LoggedUserId = usr.Id;
+                        Shared.Logged = true;
                     }
 
                     client.CookieContainer = Shared.cookiecon;
@@ -127,7 +130,8 @@ namespace Shop_api
             //MessageBox.Show(response2.Content, ":)", MessageBoxButton.OK, MessageBoxImage.Error);
             client.CookieContainer = null;
             Shared.cookiecon = null;
-            Shared.logged = false;
+            Shared.Logged = false;
+            //Shared.LoggedUserId = 0;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Shop_api
         public void IsLogged()
         {
             
-            if (Shared.logged)
+            if (Shared.Logged)
             {
                 client.CookieContainer = Shared.cookiecon;
             }

@@ -45,8 +45,9 @@ namespace Shop_api
             }
             
         }
-        public static CookieContainer cookiecon;
-        public static bool logged;
+        public static CookieContainer cookiecon = new CookieContainer();
+        public static bool Logged;
+        public static int LoggedUserMail;
         /*public static string GetUrl()
         {
            return  "https://student.sps-prosek.cz/~horejvi14/shop/";

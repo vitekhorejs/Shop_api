@@ -85,17 +85,32 @@ namespace Shop_api
                     //MessageBox.Show(response.Data.Data, "nevim", MessageBoxButton.OK, MessageBoxImage.Warning);
                     //MessageBox.Show(user1.Id.ToString(), "nevim", MessageBoxButton.OK, MessageBoxImage.Warning);
                     CookieContainer cookiecon = new CookieContainer();
-                    Input responze = SimpleJson.DeserializeObject<Input>(response.Content);
-                    if (response.StatusCode == HttpStatusCode.OK || responze.Type.Equals("data"))
+                    Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
+                    if (response.StatusCode == HttpStatusCode.OK || responseInput.Type.Equals("data"))
                     {
                         var cookie = response.Cookies.FirstOrDefault();
                         Shared.cookiecon.Add(new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
-                        User usr = SimpleJson.DeserializeObject<User>(responze.Data);
+                        //User usr = SimpleJson.DeserializeObject<User>(responze.Data);
                         //Shared.LoggedUserId = usr.Id;
-                        Shared.Logged = true;
+                        
+                        int x = 0;
+                        if (Int32.TryParse(responseInput.Data, out x))
+                        {
+                            Shared.LoggedUserPermission = x;
+                            Shared.Logged = true;
+                            Shared.LoggedUserMail = user.Mail;
+                            client.CookieContainer = Shared.cookiecon;
+                            this.NavigationService.Navigate(new MainPage());
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nepodařilo se načíst Opravnění uživatele.", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            //client.CookieContainer = Shared.cookiecon;
+                            //Shared.LoggedUserPermission = 0;
+                            this.NavigationService.Refresh();
+                        }                
                     }
-
-                    client.CookieContainer = Shared.cookiecon;
+                    
                 }
                 else
                 {
@@ -115,23 +130,12 @@ namespace Shop_api
             }
             
         }
-        private void showsessionid(object sender, RoutedEventArgs e)
+        /*private void showsessionid(object sender, RoutedEventArgs e)
         {
             var request2 = new RestRequest(Method.GET);
             var response2 = client.Execute(request2);
             MessageBox.Show(response2.Content, ":)", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        private void logout(object sender, RoutedEventArgs e)
-        {
-            var request2 = new RestRequest(Method.POST);
-            var response2 = client.Execute(request2);
-            request2.AddParameter("Type", "logout");
-            request2.AddParameter("Data", "");
-            //MessageBox.Show(response2.Content, ":)", MessageBoxButton.OK, MessageBoxImage.Error);
-            client.CookieContainer = null;
-            Shared.cookiecon = null;
-            Shared.Logged = false;
-            //Shared.LoggedUserId = 0;
-        }
+        }*/
+        
     }
 }

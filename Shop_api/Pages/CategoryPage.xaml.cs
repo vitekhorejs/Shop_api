@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RestSharp;
 
 namespace Shop_api
 {
@@ -20,11 +21,33 @@ namespace Shop_api
     /// </summary>
     public partial class CategoryPage : Page
     {
-        public CategoryPage()
+        RestClient client = new RestClient(Shared.Url);
+        public CategoryPage(Category category)
         {
             InitializeComponent();
+            IsLogged();
+            kategorie = category;
+            ShowItems();
         }
+        Category kategorie = new Category();
+        public void IsLogged()
+        {
+            if (Shared.Logged)
+            {
+                client.CookieContainer = Shared.cookiecon;
+                UserPanel.Visibility = Visibility.Visible;
+                USER.Content = Shared.LoggedUserMail;
+                LoginPanel.Visibility = Visibility.Hidden;
+                Info.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                UserPanel.Visibility = Visibility.Hidden;
+                LoginPanel.Visibility = Visibility.Visible;
+                Info.Visibility = Visibility.Visible;
+            }
 
+        }
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             if (this.NavigationService.CanGoBack)
@@ -32,15 +55,46 @@ namespace Shop_api
                 this.NavigationService.GoBack();
             }
         }
+        private void ShowItems()
+        {
+            var request = new RestRequest(Method.GET);
+            request.AddParameter("Type", "get_items");
+            //Array categoryId = ["Category_id"][kategorie.Id];
+            request.AddParameter("Data", SimpleJson.SerializeObject(kategorie));
+            //MessageBox.Show(SimpleJson.SerializeObject(kategorie), "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+            var response = client.Execute<Input>(request);
+            Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
+            List<Item> items = SimpleJson.DeserializeObject<List<Item>>(responseInput.Data);
+            ListBoxItems.ItemsSource = items;
+            CategoryName.Content = kategorie.Name;
+        }
+
+        private void User_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new UserPage());
+        }
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            
+            var request2 = new RestRequest(Method.POST);
+            request2.AddParameter("Type", "logout");
+            request2.AddParameter("Data", "none");
+            var response2 = client.Execute(request2);
+            client.CookieContainer = null;
+            Shared.cookiecon = null;
+            Shared.Logged = false;
+            Shared.LoggedUserMail = null;
+            Shared.LoggedUserPermission = 0;
+            this.NavigationService.Navigate(new MainPage());
         }
 
         private void Item_Clicked(object sender, RoutedEventArgs e)
         {
-            
+            var grid = sender as Grid;
+            ListBoxItems.SelectedItem = grid.DataContext;
+            Item selectedItem = ListBoxItems.SelectedItem as Item;
+            //MessageBox.Show(selectedItem.Name, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            this.NavigationService.Navigate(new DetailPage(selectedItem));
         }
     }
 }

@@ -25,10 +25,13 @@
             </TextBlock>
         </Grid>
 
-        <Grid x:Name="UserPanel" Margin="472,0,0,0" Visibility="Visible">
-            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" Content=""  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,55,0"></Label>
+        <Grid x:Name="UserPanel" Margin="472,0,0,0" >
+            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" MouseLeftButtonUp="User_Clicked" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,0"></Label>
             <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
-                <Hyperlink Click="Logout_Click"  Foreground="#000000" TextDecorations="None" >Odhlásit </Hyperlink>
+                <Hyperlink NavigateUri="CartPage.xaml"  Foreground="#000000" TextDecorations="None" >Košík</Hyperlink>
+                <Label></Label>
+                <Hyperlink Click="Logout_Click"  Foreground="#000000" TextDecorations="None" > Odhlásit </Hyperlink>
+
             </TextBlock>
         </Grid>
         <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Left" VerticalAlignment="Center"   Margin="25,0,0,0">

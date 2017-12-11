@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop_api"
         mc:Ignorable="d"
-          Title="Shop" MinHeight="425" MinWidth="680">
+          Title="Shop" MinHeight="425" MinWidth="750">
     <Grid>
         <Frame x:Name="frame" Content="" NavigationUIVisibility="Hidden" />
     </Grid>

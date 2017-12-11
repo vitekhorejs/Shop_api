@@ -25,12 +25,14 @@
             </TextBlock>
         </Grid>
 
-        <Grid x:Name="UserPanel" Margin="472,0,0,0" Visibility="Visible">
-            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" Content=""  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,55,0"></Label>
+        <Grid x:Name="UserPanel" Margin="472,0,0,0" >
+            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" MouseLeftButtonUp="User_Clicked" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,0"></Label>
             <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
-                <Hyperlink Click="Logout_Click"  Foreground="#000000" TextDecorations="None" >Odhlásit </Hyperlink>
-            </TextBlock>
+                <Hyperlink NavigateUri="CartPage.xaml"  Foreground="#000000" TextDecorations="None" >Košík</Hyperlink>
+                <Label></Label>
+                <Hyperlink Click="Logout_Click"  Foreground="#000000" TextDecorations="None" > Odhlásit </Hyperlink>
 
+            </TextBlock>
         </Grid>
 
         <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Left" VerticalAlignment="Center"   Margin="25,0,0,0">
@@ -44,13 +46,12 @@
             <StackPanel Margin="20,0,20,0">
 
 
-                <Image x:Name="Image" Height="200" Source="{Binding item.ImageSource}" HorizontalAlignment="Left" ></Image>
+                <Image x:Name="Image" Height="200"  HorizontalAlignment="Left" ></Image>
                 <Button x:Name="BuyButton" HorizontalAlignment="Left" Content="Vložit do košíku" Click="BuyItem" Margin="220,-20,0,0"></Button>
                 <Label Content="Cena:" FontWeight="Bold" FontSize="14"></Label>
                 <Label x:Name="Price"  FontSize="14" Margin="40,-29,0,0"></Label>
                 <Label Content="Popis" FontWeight="Bold" FontSize="14"></Label>
-                <TextBlock Height="199" Margin="5,0,0,0">
-                <Run Text="L"/><Run Text="orem ipsum dolor sit amet, consectetuer adipiscing elit. "/><LineBreak/><Run Text="Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. "/><LineBreak/><Run Text="Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Et harum quidem rerum facilis "/><LineBreak/><Run Text="est et expedita distinctio. Etiam neque. Etiam sapien elit, consequat eget, tristique non, "/><LineBreak/><Run Text="venenatis quis, ante. Integer vulputate sem a nibh rutrum consequat. Neque porro "/><LineBreak/><Run Text="quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam "/><LineBreak/><Run Text="eius modi tempora incidunt "/><LineBreak/><Run Text="ut labore et dolore magnam aliquam quaerat volu"/><LineBreak/><Run Text="ptatem. Aenean id metus id velit ullamcorper pulvinar. Aliquam erat volutpat. "/><LineBreak/><Run Text="Pellentesque pretium lectus id turpis. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci."/>
+                <TextBlock x:Name="Description" Height="199" Margin="5,0,0,0" Text="">
                 </TextBlock>
             </StackPanel>
         </ScrollViewer>

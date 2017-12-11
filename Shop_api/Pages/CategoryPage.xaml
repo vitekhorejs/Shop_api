@@ -27,10 +27,13 @@
             </TextBlock>
         </Grid>
 
-        <Grid x:Name="UserPanel" Margin="472,0,0,0" Visibility="Visible">
-            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" Content=""  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,55,0"></Label>
+        <Grid x:Name="UserPanel" Margin="472,0,0,0" >
+            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" MouseLeftButtonUp="User_Clicked" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,0"></Label>
             <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
-                <Hyperlink Click="Logout_Click"  Foreground="#000000" TextDecorations="None" >Odhlásit </Hyperlink>
+                <Hyperlink NavigateUri="CartPage.xaml"  Foreground="#000000" TextDecorations="None" >Košík</Hyperlink>
+                <Label></Label>
+                <Hyperlink Click="Logout_Click"  Foreground="#000000" TextDecorations="None" > Odhlásit </Hyperlink>
+
             </TextBlock>
         </Grid>
 
@@ -41,7 +44,7 @@
         <Label x:Name="CategoryName" Content="" FontSize="30"  Margin="60,-5,0,0" Grid.Column="0" Grid.Row="1"></Label>
         <Label x:Name="Info" Content="*Pro možnost nákupu se nejdříve přihlašte. Bez příhlášení je dostupné pouze prohlížení položek." FontSize="9"  Margin="20,-5,0,0" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
 
-        <ListBox Name="ic"  Margin="20,45,20,20" Grid.Column="0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+        <ListBox Name="ListBoxItems"  Margin="20,45,20,20" Grid.Column="0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
             <ListBox.ItemTemplate>
                 <DataTemplate >
                     <Grid Margin="5" Background="#FFBBCFE2" MouseLeftButtonUp="Item_Clicked">
@@ -53,7 +56,7 @@
                             <RowDefinition Height="70" />
                         </Grid.RowDefinitions>
 
-                        <Image Grid.Column="0" Margin="0,10,0,0" Grid.Row="0" Source="{Binding ImageSource}" Height="120"/>
+                        <Image Grid.Column="0" Margin="0,10,0,0" Grid.Row="0" Source="{Binding Image_path}" Height="120"/>
                         <Label Grid.Column="0" Grid.Row="1" Content="{Binding Name}" FontSize="20" HorizontalAlignment="Center" />
                         <Label Grid.Column="0" Grid.Row="1" Content="{Binding Price}" Margin="0,30,0,0" Foreground="#FF03133E" FontSize="14" HorizontalAlignment="Center" />
                         <Label Grid.Column="0" Grid.Row="1" Content="Cena:" Margin="0,30,0,0" Foreground="#FF03133E" FontSize="14" HorizontalAlignment="Left" />

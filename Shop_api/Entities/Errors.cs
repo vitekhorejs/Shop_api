@@ -15,7 +15,7 @@ namespace Shop_api
             {1001, "Nebyl vybrán typ operace."},
             {1002, "Data nebyla poslána v json formátu."},
             {1003, "V databázi je již totožný záznam."},
-            {1004, "Záznam byl uložen do databáze."},
+            {1004, "Registrace proběhla úspěšně. Nyní se mužete přihlásit."},
             {1005, "Při ukládání do databáze došlo k chybě."},
             {1006, "Uživatel s tímto emailem je již zaregistrovaný."},
             {1007, "Na server nebyla poslána žádná data."},

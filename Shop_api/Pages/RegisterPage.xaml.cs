@@ -77,10 +77,6 @@ namespace Shop_api
             {
                 MessageBox.Show("Zadejte Příjmení", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else if (Password.SecurePassword.Length < 5)
-            {
-                MessageBox.Show("Heslo musí obsahovat alespoň 5 znaků", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
             else if (Password.Password == "" || Password.Password == null)
             {
                 MessageBox.Show("Zadejte heslo", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -93,6 +89,10 @@ namespace Shop_api
             {
                 MessageBox.Show("Zadaná hesla se neshodují", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            else if (Password.SecurePassword.Length < 5)
+            {
+                MessageBox.Show("Heslo musí obsahovat alespoň 5 znaků", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
             else
             {
                 var client = new RestClient(Shared.Url);
@@ -102,15 +102,32 @@ namespace Shop_api
                 request.AddParameter("Type", "register_user");
                 request.AddParameter("Data", SimpleJson.SerializeObject(user));
                 var response = client.Execute<Input>(request);
+
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    Shared.ShowInfo(response.Content);   
+                    Shared.ShowInfo(response.Content);
+                    int my_error;
+                    Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
+                    if (Int32.TryParse(responseInput.Data, out my_error) == false)
+                    { 
+                        if (my_error == 1004)
+                        {
+                            my_error = 0;
+                            this.NavigationService.Navigate(new LoginPage());
+                        }
+                    }
+                    Password.Password = "";
+                    Password2.Password = "";
+
                 }
                 else
                 {
                     MessageBox.Show("Při komunikaci se serverem došlo k chybě.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Password.Password = "";
+                    Password2.Password = "";
                 }
-                this.NavigationService.Navigate(new LoginPage());
+
+                
             }
         }
         

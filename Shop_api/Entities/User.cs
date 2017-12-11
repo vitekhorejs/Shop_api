@@ -9,7 +9,7 @@ namespace Shop_api
 {
     public class User :  INotifyPropertyChanged
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string Password { get; set; }
 
         private string _Name { get; set; }

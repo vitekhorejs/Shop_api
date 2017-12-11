@@ -42,16 +42,14 @@
             <ListView Name="listview" Height="100">
 
             </ListView>
-            <Label Content="Produkt název" FontWeight="Bold" FontSize="14"></Label>
-            <Label Content="cena"  FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0"></Label>
-            <Label Content="Produkt název" FontWeight="Bold" FontSize="14"></Label>
-            <Label Content="cena"  FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0"></Label>
-            <Label Content="Produkt název" FontWeight="Bold" FontSize="14"></Label>
-            <Label Content="cena"  FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0"></Label>
+            <ListView Name="listview2" Height="100">
+
+            </ListView>
+            
             <Label Content="Celkem" FontWeight="Bold" FontSize="14" Foreground="#FF3362A4" Margin="0,10,0,0"></Label>
             <Label Content="cena"  FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0" FontWeight="Bold"></Label>
 
-            <Button Content="Objednat" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5,0,0" FontWeight="Bold" FontSize="14" MinWidth="59" Width="85" Height="25"></Button>
+            <Button Content="Objednat" Click="Objednat" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5,0,0" FontWeight="Bold" FontSize="14" MinWidth="59" Width="85" Height="25"></Button>
             <Label Content="Zpět k nákupu" Foreground="#FF3362A4" FontWeight="Bold" HorizontalContentAlignment="Right"></Label>
 
 

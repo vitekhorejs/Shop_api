@@ -75,7 +75,7 @@ namespace Shop_api
             request2.AddParameter("Data", "none");
             var response2 = client.Execute(request2);
             client.CookieContainer = null;
-            Shared.cookiecon = null;
+            Shared.cookiecon = null ;
             Shared.Logged = false;
             Shared.LoggedUserMail = null;
             Shared.LoggedUserPermission = 0;

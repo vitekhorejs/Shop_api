@@ -63,6 +63,7 @@
     <Compile Include="Entities\Errors.cs" />
     <Compile Include="Entities\Input.cs" />
     <Compile Include="Entities\Item.cs" />
+    <Compile Include="Entities\Order.cs" />
     <Compile Include="Pages\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>

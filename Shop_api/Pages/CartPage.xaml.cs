@@ -25,7 +25,12 @@ namespace Shop_api
         public CartPage()
         {
             InitializeComponent();
+            IsLogged();
+            ShowItems();
+            ShowOrders();
         }
+        List<Item> items = new List<Item>();
+        Item item = new Item();
         private void User_Clicked(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new UserPage());
@@ -47,6 +52,40 @@ namespace Shop_api
                 this.NavigationService.Navigate(new MainPage());
             }
 
+        }
+
+        private void Objednat(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ShowOrders()
+        {
+            var request = new RestRequest(Method.GET);
+            request.AddParameter("Type", "get_orders");
+            //Array categoryId = ["Category_id"][kategorie.Id];
+            request.AddParameter("Data", "none");
+            //MessageBox.Show(SimpleJson.SerializeObject(kategorie), "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+            var response = client.Execute<Input>(request);
+            Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
+            List<Order> orders = SimpleJson.DeserializeObject<List<Order>>(responseInput.Data);
+            //MessageBox.Show(orders.ToString(), "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+            listview.ItemsSource = orders;
+            //CategoryName.Content = kategorie.Name;
+        }
+
+        private void ShowItems()
+        {
+            /*var request = new RestRequest(Method.GET);
+            request.AddParameter("Type", "get_cart_items");
+            //Array categoryId = ["Category_id"][kategorie.Id];
+            request.AddParameter("Data", "none");
+            //MessageBox.Show(SimpleJson.SerializeObject(kategorie), "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+            var response = client.Execute<Input>(request);
+            Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
+            List<Item> items = SimpleJson.DeserializeObject<List<Item>>(responseInput.Data);
+            listview.ItemsSource = items;
+            //CategoryName.Content = kategorie.Name;*/
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)

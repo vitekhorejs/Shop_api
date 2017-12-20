@@ -40,7 +40,8 @@
             <Hyperlink NavigateUri="MainPage.xaml" FontSize="22" FontWeight="Bold" Background="#00000000" Foreground="#FFDEDEDE" TextDecorations="None" >Superkomp.cz </Hyperlink>
         </TextBlock>
         <StackPanel Grid.Column="0" Grid.Row="1">
-            <Button ></Button>
+            <Button Content="Objednávky" Click="Orders_Clicked"></Button>
+            <Label Content="data uzivatele..."></Label>
         </StackPanel>
     </Grid>
 </Page>

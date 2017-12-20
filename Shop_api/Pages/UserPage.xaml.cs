@@ -68,5 +68,9 @@ namespace Shop_api
         {
             this.NavigationService.Navigate(new UserPage());
         }
+        private void Orders_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new OrderPage());
+        }
     }
 }

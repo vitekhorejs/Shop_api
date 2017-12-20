@@ -17,18 +17,16 @@ using RestSharp;
 namespace Shop_api
 {
     /// <summary>
-    /// Interakční logika pro CartPage.xaml
+    /// Interakční logika pro OrderPage.xaml
     /// </summary>
-    public partial class CartPage : Page
+    public partial class OrderPage : Page
     {
         RestClient client = new RestClient(Shared.Url);
-        public CartPage()
+        public OrderPage()
         {
             InitializeComponent();
             IsLogged();
-            //ShowOrders();
-            ShowItems();
-            
+            ShowOrders();
         }
         List<Item> items = new List<Item>();
         Item item = new Item();
@@ -55,14 +53,13 @@ namespace Shop_api
 
         }
 
-        private void Objednat(object sender, RoutedEventArgs e)
+        /*private void Objednat(object sender, RoutedEventArgs e)
         {
             var request = new RestRequest(Method.PUT);
             request.AddParameter("Type", "change_order_status");
             request.AddParameter("Data", "none");
             var response = client.Execute<Input>(request);
-        }
-        
+        }*/
         private void listViewItem_MouseDoubleClick(object sender, RoutedEventArgs e)
         {
             ListViewItem item = sender as ListViewItem;
@@ -77,7 +74,7 @@ namespace Shop_api
             this.NavigationService.Navigate(new CartPage());
         }
 
-        /*private void ShowOrders()
+        private void ShowOrders()
         {
             var request = new RestRequest(Method.GET);
             request.AddParameter("Type", "get_orders");
@@ -90,38 +87,9 @@ namespace Shop_api
             //MessageBox.Show(orders.ToString(), "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
             listview.ItemsSource = orders;
             //CategoryName.Content = kategorie.Name;
-        }*/
-
-        private void ShowItems()
-        {
-            var request = new RestRequest(Method.GET);
-            request.AddParameter("Type", "get_cart_items");
-            request.AddParameter("Data", "none");
-            var response = client.Execute<Input>(request);
-            Shared.ShowInfo(response.Content);
-            Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
-            if(responseInput.Type == "error")
-            {
-
-            }
-            else
-            {
-                List<ItemId> items = SimpleJson.DeserializeObject<List<ItemId>>(responseInput.Data);
-                List<Item> itemy = new List<Item>();
-                foreach (ItemId item in items)
-                {
-                    var request2 = new RestRequest(Method.GET);
-                    request2.AddParameter("Type", "get_item_by_id");
-                    request2.AddParameter("Data", item.Item_id);
-                    var response2 = client.Execute<Input>(request2);
-                    Input responseInput2 = SimpleJson.DeserializeObject<Input>(response2.Content);
-                    Item item2 = SimpleJson.DeserializeObject<Item>(responseInput2.Data);
-                    itemy.Add(item2);
-                }
-                listview2.ItemsSource = itemy;
-            }
-
         }
+
+
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {

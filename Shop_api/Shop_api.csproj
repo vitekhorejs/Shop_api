@@ -65,6 +65,13 @@
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\ItemId.cs" />
+    <Compile Include="ItemNevim.cs" />
+    <Compile Include="Pages\OrderDetailPage.xaml.cs">
+      <DependentUpon>OrderDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\OrderPage.xaml.cs">
+      <DependentUpon>OrderPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
@@ -73,6 +80,14 @@
     </Compile>
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Shared.cs" />
+    <Page Include="Pages\OrderDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\OrderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\OrderFinishPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

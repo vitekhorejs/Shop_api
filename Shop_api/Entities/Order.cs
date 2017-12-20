@@ -14,7 +14,7 @@ namespace Shop_api
         public  int Status { get; set; }
         public override string ToString()
         {
-            return "obejdavka cislo: " + Id+ " Status:" + Status;
+            return "obejdavka cislo: " + Id/*+ " Status:" + Status*/;
         }
     }
 }

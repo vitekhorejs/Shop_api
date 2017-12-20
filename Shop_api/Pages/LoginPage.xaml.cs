@@ -86,7 +86,7 @@ namespace Shop_api
                     //MessageBox.Show(user1.Id.ToString(), "nevim", MessageBoxButton.OK, MessageBoxImage.Warning);
                     CookieContainer cookiecon = new CookieContainer();
                     Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
-                    if (response.StatusCode == HttpStatusCode.OK || responseInput.Type.Equals("data"))
+                    if (response.StatusCode == HttpStatusCode.OK && responseInput.Type.Equals("data"))
                     {
                         var cookie = response.Cookies.FirstOrDefault();
                         Shared.cookiecon.Add(new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));

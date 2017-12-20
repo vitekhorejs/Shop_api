@@ -17,9 +17,28 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Rectangle Fill="#FF31648F" IsHitTestVisible="False" Grid.Column="0" Grid.Row="0"/>
-        <Label Grid.Column="0" Grid.Row="0" Content="Přihlásit" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,65,0"></Label>
-        <Label Grid.Column="0" Grid.Row="0" Content="Registrovat" HorizontalAlignment="Right" VerticalAlignment="Bottom" ></Label>
-        <Label Grid.Column="0" Grid.Row="0" Content="Superkomp.cz" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" Background="#00000000" Foreground="#FFDEDEDE" Margin="25,0,0,0"></Label>
+
+        <Grid x:Name="LoginPanel" Margin="472,0,0,0" >
+            <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
+                <Hyperlink NavigateUri="LoginPage.xaml"   Foreground="#000000" TextDecorations="None" >Přihlásit </Hyperlink>
+                <Label></Label>
+                <Hyperlink NavigateUri="RegisterPage.xaml"   Foreground="#000000" TextDecorations="None"  >Registrovat </Hyperlink>
+            </TextBlock>
+        </Grid>
+
+        <Grid x:Name="UserPanel" Margin="472,0,0,0" >
+            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" MouseLeftButtonUp="User_Clicked" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,0"></Label>
+            <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
+                <Hyperlink NavigateUri="CartPage.xaml"  Foreground="#000000" TextDecorations="None" >Košík</Hyperlink>
+                <Label></Label>
+                <Hyperlink Click="Logout_Click"  Foreground="#000000" TextDecorations="None" > Odhlásit </Hyperlink>
+
+            </TextBlock>
+        </Grid>
+
+        <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Left" VerticalAlignment="Center"   Margin="25,0,0,0">
+            <Hyperlink NavigateUri="MainPage.xaml" FontSize="22" FontWeight="Bold" Background="#00000000" Foreground="#FFDEDEDE" TextDecorations="None" >Superkomp.cz </Hyperlink>
+        </TextBlock>
         <StackPanel Grid.Column="0" Grid.Row="1">
             <Button ></Button>
         </StackPanel>

@@ -9,8 +9,9 @@ namespace Shop_api
     public class Item
     {
         public int Id { get; set; }
-        public int Price { get; set; }
         public string Name { get; set; }
+        public int Price { get; set; }
+        
         public string Description { get; set; }
         public int Category_id { get; set; }
         private string _Image_path;
@@ -24,6 +25,10 @@ namespace Shop_api
             {
                 this._Image_path = value;
             }
+        }
+        public override string ToString()
+        {
+            return Name + " Cena: " + Price;
         }
     }
 }

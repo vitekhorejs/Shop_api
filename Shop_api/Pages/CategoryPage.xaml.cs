@@ -58,7 +58,7 @@ namespace Shop_api
         private void ShowItems()
         {
             var request = new RestRequest(Method.GET);
-            request.AddParameter("Type", "get_items");
+            request.AddParameter("Type", "get_items_by_category");
             //Array categoryId = ["Category_id"][kategorie.Id];
             request.AddParameter("Data", SimpleJson.SerializeObject(kategorie));
             //MessageBox.Show(SimpleJson.SerializeObject(kategorie), "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);

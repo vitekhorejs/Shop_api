@@ -21,7 +21,10 @@ namespace Shop_api
             {1007, "Na server nebyla poslána žádná data."},
             {1008, "Emailová adresa není platná."},
             {1009, "Špatný email nebo heslo."},
-
+            {1010, "Heslo musí obsahovat více než 5 znaků"},
+            {1011, "Nejdříve se musíte přihlásit."},
+            {1012, "Nelze získat položky košíku."},
+            {1013, "Košík je prázdný."},
         };
 
     }

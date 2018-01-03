@@ -43,8 +43,18 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
                     </Style>
                 </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel HorizontalAlignment="Stretch">
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                            <!--<TextBlock Text=" Cena: " />-->
+                            <TextBlock Text="{Binding Price}" FontWeight="Bold" DockPanel.Dock="Right"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
 
             </ListView>
             

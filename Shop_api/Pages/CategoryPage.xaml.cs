@@ -80,8 +80,7 @@ namespace Shop_api
             request2.AddParameter("Type", "logout");
             request2.AddParameter("Data", "none");
             var response2 = client.Execute(request2);
-            client.CookieContainer = null;
-            Shared.cookiecon = null;
+            Shared.cookiecon = new System.Net.CookieContainer();
             Shared.Logged = false;
             Shared.LoggedUserMail = null;
             Shared.LoggedUserPermission = 0;

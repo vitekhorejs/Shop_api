@@ -10,8 +10,26 @@ namespace Shop_api
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Price { get; set; }
-        
+        private int _Price;
+        public int Price
+        {
+            get
+            {
+                if (Quantity != 0)
+                {
+                    return _Price * Quantity;
+                }
+                else
+                {
+                    return _Price;
+                }
+            }
+            set
+            {
+                this._Price = value;
+            }
+        }
+
         public string Description { get; set; }
         public int Category_id { get; set; }
         private string _Image_path;
@@ -30,5 +48,6 @@ namespace Shop_api
         {
             return Name + " Cena: " + Price;
         }
+        public int Quantity { get; set; }
     }
 }

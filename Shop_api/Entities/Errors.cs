@@ -25,6 +25,8 @@ namespace Shop_api
             {1011, "Nejdříve se musíte přihlásit."},
             {1012, "Nelze získat položky košíku."},
             {1013, "Košík je prázdný."},
+            {1014, "Při komuniakci s databází došlo k chybě."},
+            {1015, "Maximální počet kusů je 250."},
         };
 
     }

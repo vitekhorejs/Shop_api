@@ -28,6 +28,7 @@ namespace Shop_api
         {
             InitializeComponent();
             DataContext = user;
+            Mail.Focus();
             
         }
 
@@ -41,6 +42,14 @@ namespace Shop_api
             catch
             {
                 return false;
+            }
+        }
+
+        private void EnterPressed(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Login_Click(null, null);
             }
         }
 

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RestSharp;
 
 namespace Shop_api
 {
@@ -23,6 +24,7 @@ namespace Shop_api
         public MainWindow()
         {
             InitializeComponent();
+            //RestClient client = new RestClient(Shared.Url);
             MainPage MainPage = new MainPage();
             frame.NavigationService.Navigate(MainPage);
         }

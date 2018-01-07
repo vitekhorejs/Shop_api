@@ -26,7 +26,7 @@
         </Grid>
 
         <Grid x:Name="UserPanel" Margin="472,0,0,0" >
-            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" MouseLeftButtonUp="User_Clicked" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,0"></Label>
+            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" MouseLeftButtonUp="User_Clicked" HorizontalAlignment="Right" Cursor="Hand" VerticalAlignment="Bottom" Margin="0,0,100,0"></Label>
             <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
                 <Hyperlink NavigateUri="CartPage.xaml"  Foreground="#000000" TextDecorations="None" >Košík</Hyperlink>
                 <Label></Label>
@@ -39,27 +39,91 @@
         </TextBlock>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Margin="0" MaxWidth="600">
-            <ListView Name="listview2" Height="100">
+            <ListView Name="listview2" Height="100" FocusVisualStyle="{x:Null}">
+                <ListView.Resources>
+                    <DataTemplate x:Key="Templ">
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding}"/>
+                    </DataTemplate>
+                    <Style x:Key="HeaderStyle" TargetType="GridViewColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+
+                    <GridView AllowsColumnReorder="true" >
+
+                        <GridViewColumn Header="Produkt" Width="250" HeaderContainerStyle="{StaticResource HeaderStyle}" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}" Cursor="Hand" MouseLeftButtonDown="listViewItem_MouseClick"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Počet" Width="80" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="35" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Button Click="Minus" Height="20" Content="-" FontSize="9" FontWeight="Bold" TextBlock.LineHeight="0.1" Padding="0" Grid.Column="0" ></Button>
+                                        <TextBox Text="{Binding Quantity, Delay=500}" HorizontalAlignment="Left" Width="35" Grid.Column="1" LostFocus="QuantityChanged" KeyDown="EnterPressed" TextAlignment="Center"/>
+                                        <Button Click="Plus" Height="20" Content="+" FontSize="9" FontWeight="Bold" TextBlock.LineHeight="0.1" Padding="0" Grid.Column="2"></Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Cena" Width="220">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  HorizontalAlignment="Right">
+                                        <Run Text="{Binding Path=Price, StringFormat='{}{0:C}',ConverterCulture=cs-CZ}"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="" Width="30">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="X" HorizontalAlignment="Center" Click="DeleteItem" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn> 
+
+                    </GridView>
+
+                </ListView.View>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
-                        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                        <!--<EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />-->
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                     </Style>
                 </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
+                <!--<ListView.ItemTemplate>
                     <DataTemplate>
-                        <DockPanel HorizontalAlignment="Stretch">
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" HorizontalAlignment="Left"  Grid.Column="0" />
+                            
+                            <TextBox Text="{Binding Quantity}" FontWeight="Bold" HorizontalAlignment="Left"  Grid.Column="1" LostFocus="QuantityChanged" />-->
                             <!--<TextBlock Text=" Cena: " />-->
-                            <TextBlock Text="{Binding Price}" FontWeight="Bold" DockPanel.Dock="Right"/>
-                        </DockPanel>
+                            <!--<TextBlock Text="{Binding Price}" FontWeight="Bold" HorizontalAlignment="Right" Grid.Column="2"/>
+                        </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
+                </ListView.ItemTemplate>-->
 
             </ListView>
             
             <Label Content="Celkem" FontWeight="Bold" FontSize="14" Foreground="#FF3362A4" Margin="0,10,0,0"></Label>
-            <Label Content="cena"  FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0" FontWeight="Bold"></Label>
+            <TextBlock x:Name="TotalPriceLabel" Text="{Binding Path=TotalPrice, StringFormat='{}{0:C}',ConverterCulture=cs-CZ}" FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0" FontWeight="Bold"></TextBlock>
 
             <Button Content="Objednat" Click="Objednat" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5,0,0" FontWeight="Bold" FontSize="14" MinWidth="59" Width="85" Height="25"></Button>
             <Label Content="Zpět k nákupu" Foreground="#FF3362A4" FontWeight="Bold" HorizontalContentAlignment="Right"></Label>

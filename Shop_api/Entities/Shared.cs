@@ -13,36 +13,40 @@ namespace Shop_api
     {
         public static void ShowInfo(string response)
         {
-            //MessageBox.Show(response.ToString(), "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-            //Input responze = new Input();
-            Input responze = SimpleJson.DeserializeObject<Input>(response);
-            //$vars = get_class_vars(get_class($responze));
-            //string text = responze.GetType().GetProperty("error", null).GetValue(responze, null).ToString();
-            //MessageBox.Show(text, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-            //Input responze = new Input();
-            //responze = response.Data;
-            //MessageBox.Show(responze.ToString(), "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-            //hor.vit@seznam.cz
-            if (responze.Type == "error")
+            if (response != null && response != "")
             {
-                int my_error;   //jstli je cislo zobrazi prislusnou hlasku, pokud neni zobrazy text vraceny severem
-                if (Int32.TryParse(responze.Data, out my_error) == false)
+                //MessageBox.Show(response.ToString(), "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                //Input responze = new Input();
+               Input responze = SimpleJson.DeserializeObject<Input>(response);
+                //$vars = get_class_vars(get_class($responze));
+                //string text = responze.GetType().GetProperty("error", null).GetValue(responze, null).ToString();
+                //MessageBox.Show(text, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                //Input responze = new Input();
+                //responze = response.Data;
+                //MessageBox.Show(responze.ToString(), "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                //hor.vit@seznam.cz
+                if (responze.Type == "error")
                 {
-                    MessageBox.Show(responze.Data, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    if (Errors.error.ContainsKey(my_error))
+                    int my_error;   //jstli je cislo zobrazi prislusnou hlasku, pokud neni zobrazy text vraceny severem
+                    if (Int32.TryParse(responze.Data, out my_error) == false)
                     {
-                        MessageBox.Show(Errors.error[my_error], "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(responze.Data, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Neznámá chyba: " + responze.Data, "Info", MessageBoxButton.OK, MessageBoxImage.Information); // může znamenat že server vrátil číslo ltere nesouvisy se znamou chybou
-                    }
+                        if (Errors.error.ContainsKey(my_error))
+                        {
+                            MessageBox.Show(Errors.error[my_error], "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Neznámá chyba: " + responze.Data, "Info", MessageBoxButton.OK, MessageBoxImage.Information); // může znamenat že server vrátil číslo ltere nesouvisy se znamou chybou
+                        }
 
+                    }
                 }
             }
+            
             
         }
         public static CookieContainer cookiecon = new CookieContainer();

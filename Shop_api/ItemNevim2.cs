@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shop_api
 {
-    public class ItemId
+    public class ItemNevim2
     {
-        public int Item_id { get; set; }
+        public int ItemId { get; set; }
         public int Quantity { get; set; }
     }
 }

@@ -63,15 +63,9 @@ namespace Shop_api
         private void listViewItem_MouseDoubleClick(object sender, RoutedEventArgs e)
         {
             ListViewItem item = sender as ListViewItem;
-            Item item2 = item.Content as Item;
-            var request = new RestRequest(Method.DELETE);
-            request.AddParameter("Type", "delete_item_from_order");
-            ItemNevim nevim = new ItemNevim();
-            nevim.Id = item2.Id;
-            //nevim.OrderId = 
-            request.AddParameter("Data", SimpleJson.SerializeObject(nevim));
-            var response = client.Execute<Input>(request);
-            this.NavigationService.Navigate(new CartPage());
+            Order item2 = item.DataContext as Order;
+            
+            this.NavigationService.Navigate(new OrderDetailPage(item2.Id));
         }
 
         private void ShowOrders()
@@ -82,13 +76,36 @@ namespace Shop_api
             request.AddParameter("Data", "none");
             //MessageBox.Show(SimpleJson.SerializeObject(kategorie), "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
             var response = client.Execute<Input>(request);
+            Shared.ShowInfo(response.Content);
             Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
-            List<Order> orders = SimpleJson.DeserializeObject<List<Order>>(responseInput.Data);
-            //MessageBox.Show(orders.ToString(), "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
-            listview.ItemsSource = orders;
-            //CategoryName.Content = kategorie.Name;
-        }
+            if (responseInput.Type == "error")
+            {
 
+            }
+            else
+            {
+                List<Order> orders = SimpleJson.DeserializeObject<List<Order>>(responseInput.Data);
+                //MessageBox.Show(orders.ToString(), "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                listview.ItemsSource = orders;
+                //CategoryName.Content = kategorie.Name;
+            }
+
+        }
+        private void GoBack(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new UserPage());
+        }
+        private void HideOrder(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Order item2 = button.DataContext as Order;
+            var request = new RestRequest(Method.DELETE);
+            request.AddParameter("Type", "hide_order");
+            request.AddParameter("Data", item2.Id);
+            var response = client.Execute<Input>(request);
+            Shared.ShowInfo(response.Content);
+            this.NavigationService.Navigate(new OrderPage());
+        }
 
 
         private void Logout_Click(object sender, RoutedEventArgs e)

@@ -61,6 +61,10 @@ namespace Shop_api
         {
             this.NavigationService.Navigate(new UserPage());
         }
+        private void MainPageNavigate(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MainPage());
+        }
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             var request2 = new RestRequest(Method.POST);

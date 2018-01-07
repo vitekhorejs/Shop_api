@@ -126,7 +126,7 @@
             <TextBlock x:Name="TotalPriceLabel" Text="{Binding Path=TotalPrice, StringFormat='{}{0:C}',ConverterCulture=cs-CZ}" FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0" FontWeight="Bold"></TextBlock>
 
             <Button Content="Objednat" Click="Objednat" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5,0,0" FontWeight="Bold" FontSize="14" MinWidth="59" Width="85" Height="25"></Button>
-            <Label Content="Zpět k nákupu" Foreground="#FF3362A4" FontWeight="Bold" HorizontalContentAlignment="Right"></Label>
+            <Label Content="Zpět k nákupu" MouseLeftButtonDown="GoBack" Cursor="Hand" Foreground="#FF3362A4" FontWeight="Bold" HorizontalContentAlignment="Right"></Label>
 
 
         </StackPanel>

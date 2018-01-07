@@ -108,7 +108,7 @@ namespace Shop_api
                     Shared.ShowInfo(response.Content);
                     int my_error;
                     Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
-                    if (Int32.TryParse(responseInput.Data, out my_error) == false)
+                    if (Int32.TryParse(responseInput.Data, out my_error) == true)
                     { 
                         if (my_error == 1004)
                         {

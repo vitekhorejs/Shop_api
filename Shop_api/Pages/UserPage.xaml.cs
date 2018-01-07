@@ -22,11 +22,25 @@ namespace Shop_api
     public partial class UserPage : Page
     {
         RestClient client = new RestClient(Shared.Url);
+        User2 user = new User2();
         public UserPage()
         {
             InitializeComponent();
             IsLogged();
+            GetUserData();
+            DataContext = user;
         }
+        public void GetUserData()
+        {
+            var request = new RestRequest(Method.GET);
+            request.AddParameter("Type", "get_userinfo");
+            request.AddParameter("Data", "none");
+            var response = client.Execute<Input>(request);
+            Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
+            user = SimpleJson.DeserializeObject<User2>(responseInput.Data);
+            
+        }
+
         public void IsLogged()
         {
             if (Shared.Logged)
@@ -49,6 +63,20 @@ namespace Shop_api
         {
             this.NavigationService.Navigate(new RegisterPage());
         }
+
+        private void SaveChanges(object sender, RoutedEventArgs e)
+        {
+            var request = new RestRequest(Method.PUT);
+            request.AddParameter("Type", "userdata_update");
+            request.AddParameter("Data", SimpleJson.SerializeObject(user));
+            var response = client.Execute(request);
+            Shared.ShowInfo(response.Content);
+            if(response.Content == "" || response.Content == null)
+            {
+                MessageBox.Show("Změny byly uloženy.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             var request2 = new RestRequest(Method.POST);

@@ -39,21 +39,68 @@
             <Hyperlink NavigateUri="MainPage.xaml" FontSize="22" FontWeight="Bold" Background="#00000000" Foreground="#FFDEDEDE" TextDecorations="None" >Superkomp.cz </Hyperlink>
         </TextBlock>
 
-        <StackPanel Grid.Column="0" Grid.Row="1" Margin="0" MaxWidth="600">
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="0" MaxWidth="650">
             <ListView Name="listview" Height="100">
+                <ListView.Resources>
+                    <DataTemplate x:Key="Templ">
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding}"/>
+                    </DataTemplate>
+                    <Style x:Key="HeaderStyle" TargetType="GridViewColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    </Style>
+                </ListView.Resources>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                     </Style>
                 </ListView.ItemContainerStyle>
+                <ListView.View>
+
+                    <GridView AllowsColumnReorder="true" >
+
+                        <GridViewColumn Header="Číslo objednávky" Width="200" HeaderContainerStyle="{StaticResource HeaderStyle}" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Id}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Datum Objednání" Width="130" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Ordered}" Width="200"  />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Cena" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  HorizontalAlignment="Right">
+                                        <Run Text="{Binding Path=Price, StringFormat='{}{0:C}',ConverterCulture=cs-CZ}"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="" Width="57">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Schovat" HorizontalAlignment="Center" Click="HideOrder" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView>
+
+                </ListView.View>
             </ListView>
 
-            <Label Content="Celkem" FontWeight="Bold" FontSize="14" Foreground="#FF3362A4" Margin="0,10,0,0"></Label>
-            <Label Content="cena"  FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0" FontWeight="Bold"></Label>
 
-            
-            <Label Content="Zpět k nákupu" Foreground="#FF3362A4" FontWeight="Bold" HorizontalContentAlignment="Right"></Label>
 
+
+            <Button Width="70" Height="30" Content="Zpět" FontSize="14" Click="GoBack" Margin="0,20,0,0"></Button>
 
         </StackPanel>
     </Grid>

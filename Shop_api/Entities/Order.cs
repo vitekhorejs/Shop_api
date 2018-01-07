@@ -8,13 +8,22 @@ namespace Shop_api
 {
     public class Order
     {
-        public  int Id { get; set; }
-        public  int User_id { get; set; }
-        public  int Price { get; set; }
-        public  int Status { get; set; }
-        public override string ToString()
+        public int Id { get; set; }
+        public int User_id { get; set; }
+        public int Price { get; set; }
+        public int Status { get; set; }
+       
+        private DateTime _Ordered;
+        public string Ordered
         {
-            return "obejdavka cislo: " + Id/*+ " Status:" + Status*/;
+            get
+            {
+                return this._Ordered.ToLongDateString();
+            }
+            set
+            {
+                this._Ordered = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+            }
         }
     }
 }

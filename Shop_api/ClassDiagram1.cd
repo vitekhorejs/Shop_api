@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Shop_api.User">
+  <Class Name="Shop_api.User2">
     <Position X="7.5" Y="1.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAABAAAoAAAIAQAhAQgAAACAAAAAQABAAA=</HashCode>
-      <FileName>Entities\User.cs</FileName>
+      <HashCode>AAAAAAAAAAAABAAAoAAAIAQDhAQAAAAAAAAAAQABAAA=</HashCode>
+      <FileName>Entities\User2.cs</FileName>
+      <NewMemberFileName>Entities\User.cs</NewMemberFileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>

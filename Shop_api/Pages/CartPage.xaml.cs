@@ -286,5 +286,13 @@ namespace Shop_api
             Shared.LoggedUserPermission = 0;
             this.NavigationService.Navigate(new MainPage());
         }
+
+        private void GoBack(object sender, MouseButtonEventArgs e)
+        {
+            if (this.NavigationService.CanGoBack)
+            {
+                this.NavigationService.GoBack();
+            }
+        }
     }
 }

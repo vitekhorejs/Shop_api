@@ -44,10 +44,7 @@ namespace Shop_api
                 this._Image_path = value;
             }
         }
-        public override string ToString()
-        {
-            return Name + " Cena: " + Price;
-        }
+        
         public int Quantity { get; set; }
     }
 }

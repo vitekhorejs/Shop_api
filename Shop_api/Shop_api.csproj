@@ -81,6 +81,8 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Shared.cs" />
     <Compile Include="SomeId.cs" />
+    <Compile Include="Entities\User2.cs" />
+    <Compile Include="UserUpdate.cs" />
     <Page Include="Pages\OrderDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

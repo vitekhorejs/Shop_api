@@ -5,10 +5,96 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Shop_api"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Title="OrderDetailPage">
+      d:DesignHeight="425" d:DesignWidth="680"
+      Title="CartPage" Background="#FFD8D8D8">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Rectangle Fill="#FF31648F" IsHitTestVisible="False" Grid.Column="0" Grid.Row="0"/>
+        <Grid x:Name="LoginPanel" Margin="472,0,0,0" Visibility="Hidden">
+            <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
+                <Hyperlink NavigateUri="LoginPage.xaml"   Foreground="#000000" TextDecorations="None" >Přihlásit </Hyperlink>
+                <Label></Label>
+                <Hyperlink NavigateUri="RegisterPage.xaml"   Foreground="#000000" TextDecorations="None"  >Registrovat </Hyperlink>
+            </TextBlock>
+        </Grid>
+
+        <Grid x:Name="UserPanel" Margin="472,0,0,0" >
+            <Label x:Name="USER" Grid.Column="0" Grid.Row="0" MouseLeftButtonUp="User_Clicked" HorizontalAlignment="Right" Cursor="Hand" VerticalAlignment="Bottom" Margin="0,0,100,0"></Label>
+            <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
+                <Hyperlink NavigateUri="CartPage.xaml"  Foreground="#000000" TextDecorations="None" >Košík</Hyperlink>
+                <Label></Label>
+                <Hyperlink Click="Logout_Click"  Foreground="#000000" TextDecorations="None" > Odhlásit </Hyperlink>
+
+            </TextBlock>
+        </Grid>
+        <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Left" VerticalAlignment="Center"   Margin="25,0,0,0">
+            <Hyperlink NavigateUri="MainPage.xaml" FontSize="22" FontWeight="Bold" Background="#00000000" Foreground="#FFDEDEDE" TextDecorations="None" >Superkomp.cz </Hyperlink>
+        </TextBlock>
+
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="0" MaxWidth="600">
+            <ListView Name="listview2" Height="100" FocusVisualStyle="{x:Null}">
+                <ListView.Resources>
+                    <DataTemplate x:Key="Templ">
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding}"/>
+                    </DataTemplate>
+                    <Style x:Key="HeaderStyle" TargetType="GridViewColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+
+                    <GridView AllowsColumnReorder="true" >
+
+                        <GridViewColumn Header="Produkt" Width="250" HeaderContainerStyle="{StaticResource HeaderStyle}" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}" Cursor="Hand" MouseLeftButtonDown="listViewItem_MouseClick"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Počet" Width="80" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Quantity}" HorizontalAlignment="Center" Width="35" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Cena" Width="250">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  HorizontalAlignment="Right">
+                                        <Run Text="{Binding Path=Price, StringFormat='{}{0:C}',ConverterCulture=cs-CZ}"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
+                    </GridView>
+
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <!--<EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />-->
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+            </ListView>
+
+            <Label Content="Celkem" FontWeight="Bold" FontSize="14" Foreground="#FF3362A4" Margin="0,10,0,0"></Label>
+            <TextBlock x:Name="TotalPriceLabel" Text="{Binding Path=TotalPrice, StringFormat='{}{0:C}',ConverterCulture=cs-CZ}" FontSize="14" HorizontalAlignment="Right" Margin="0,-29,0,0" FontWeight="Bold"></TextBlock>
+            <Button Width="70" Height="30" Content="Zpět" FontSize="14" Click="GoBack" Margin="0,20,0,0"></Button>
+
+        </StackPanel>
     </Grid>
 </Page>

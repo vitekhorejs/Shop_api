@@ -86,7 +86,10 @@ namespace Shop_api
             int OrderId;  
             if (Int32.TryParse(responseInput.Data, out OrderId) == false)
             {
-                MessageBox.Show("chyba /server neposlal id dokoncene objednvaky", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Chyba - server neposlal id dokončené objednávky", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if(responseInput.Type == "error"){
+
             } else
             {
                 this.NavigationService.Navigate(new OrderFinishPage(OrderId, TotalPrice));
@@ -225,20 +228,20 @@ namespace Shop_api
             request.AddParameter("Type", "change_quantity");
             ItemNevim2 nevim = new ItemNevim2();
             nevim.ItemId = item.Id;
-            if(item.Quantity == 1)
+            if(item.Quantity <= 1)
             {
                 //MessageBox.Show("", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 //Button button = sender as Button;
                 //Item item2 = button.DataContext as Item;
                 var request2 = new RestRequest(Method.DELETE);
-                request.AddParameter("Type", "delete_item_from_order");
+                request2.AddParameter("Type", "delete_item_from_order");
                 //ItemNevim nevim = new ItemNevim();
                 //nevim.Id = item2.Id;
                 //nevim.OrderId = 
                 //nevim.Quantity = 
-                request.AddParameter("Data", SimpleJson.SerializeObject(nevim));
-                var response = client.Execute<Input>(request);
-                Shared.ShowInfo(response.Content);
+                request2.AddParameter("Data", SimpleJson.SerializeObject(nevim));
+                var response2 = client.Execute<Input>(request2);
+                Shared.ShowInfo(response2.Content);
                 this.NavigationService.Navigate(new CartPage());
             }
             else

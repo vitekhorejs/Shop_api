@@ -97,6 +97,7 @@ namespace Shop_api
         }
         private void HideOrder(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
             Button button = sender as Button;
             Order item2 = button.DataContext as Order;
             var request = new RestRequest(Method.DELETE);

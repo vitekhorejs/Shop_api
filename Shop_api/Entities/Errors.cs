@@ -28,6 +28,7 @@ namespace Shop_api
             {1014, "Při komuniakci s databází došlo k chybě."},
             {1015, "Maximální počet kusů je 250."},
             {1016, "Zatím nemáte žádné obědnávky."},
+            {1017, "V košíku nejsou žádné položky."},
         };
 
     }

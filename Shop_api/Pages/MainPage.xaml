@@ -40,6 +40,7 @@
         <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Left" VerticalAlignment="Center"   Margin="25,0,0,0">
             <Hyperlink NavigateUri="MainPage.xaml" FontSize="22" FontWeight="Bold" Background="#00000000" Foreground="#FFDEDEDE" TextDecorations="None" >Superkomp.cz </Hyperlink>
         </TextBlock>
+        <Label x:Name="InternetStatus" Visibility="Hidden" Content="OFFLINE Režim" FontSize="18" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFD80505" BorderBrush="Black" ></Label>
 
         <!--<Button Content="zobrazit sessionID" HorizontalAlignment="Center" Click="showsessionid" VerticalAlignment="Center" Margin="0,30,0,0" FontWeight="Bold" FontSize="14" Width="150" Height="25"></Button>-->
 

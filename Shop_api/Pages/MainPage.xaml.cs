@@ -50,18 +50,26 @@ namespace Shop_api
         }
         private void ShowCategories()
         {
-            var request = new RestRequest(Method.GET);
-            request.AddParameter("Type", "get_categories");
-            request.AddParameter("Data", "ahoj");
-            var response = client.Execute<Input>(request);
-            //List categories = response.Data.Data;
-            //string kategorie = response.Data.Data; 
-            //MessageBox.Show(response.Content, "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
-            Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
-            //MessageBox.Show(responseInput.Data, "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //Categories categories = SimpleJson.DeserializeObject<Categories>(responseInput.Data);
-            List<Category> categories = SimpleJson.DeserializeObject<List<Category>>(responseInput.Data);
-            ListBoxCategories.ItemsSource = categories;
+            bool InternetConnection = InternetAvailability.IsInternetAvailable();
+            if (InternetConnection == true)
+            {
+                var request = new RestRequest(Method.GET);
+                request.AddParameter("Type", "get_categories");
+                request.AddParameter("Data", "ahoj");
+                var response = client.Execute<Input>(request);
+                //List categories = response.Data.Data;
+                //string kategorie = response.Data.Data; 
+                //MessageBox.Show(response.Content, "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
+                //MessageBox.Show(responseInput.Data, "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //Categories categories = SimpleJson.DeserializeObject<Categories>(responseInput.Data);
+                List<Category> categories = SimpleJson.DeserializeObject<List<Category>>(responseInput.Data);
+                ListBoxCategories.ItemsSource = categories;
+            } else
+            {
+                //MessageBox.Show("OFFLINE Režim", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                InternetStatus.Visibility = Visibility.Visible;
+            }
         }
         
         private void Register_Button(object sender, RoutedEventArgs e)

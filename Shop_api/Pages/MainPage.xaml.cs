@@ -82,8 +82,14 @@ namespace Shop_api
                 ListBoxCategories.ItemsSource = categories;
                 foreach (Category katgorie in categories)
                 {
-                    Database.SaveItemAsync(katgorie);
+                    CategoryLocal kat = new CategoryLocal();
+                    kat.Id = katgorie.Id;
+                    kat.Name = katgorie.Name;
+                    kat.Description = katgorie.Description;
+                    kat.Image_path = katgorie.Image_path;
+                    Database.SaveItemAsync(kat);
                 }
+
             }
             else
             {

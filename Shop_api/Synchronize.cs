@@ -35,7 +35,7 @@ namespace Shop_api
             foreach (Category katgorie in categories)
             {
                 katgorie.Image_path = Shared.Url + katgorie.Image_path;
-                Database.SaveItemAsync(katgorie);
+                //Database.SaveItemAsync(katgorie);
             }
         }
 

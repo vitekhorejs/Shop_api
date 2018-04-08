@@ -14,23 +14,23 @@ namespace Shop_api
         public LocalDb(string dbPath)
         {
             database = new SQLiteAsyncConnection(dbPath);
-            database.CreateTableAsync<Category>().Wait();
+            database.CreateTableAsync<CategoryLocal>().Wait();
         }
 
-        public Task<List<Category>> GetCategoriesAsync()
+        public Task<List<CategoryLocal>> GetCategoriesAsync()
         {
-            return database.Table<Category>().ToListAsync();
+            return database.Table<CategoryLocal>().ToListAsync();
         }
-        public Task<int> SaveItemAsync(Category item)
+        public Task<int> SaveItemAsync(CategoryLocal item)
         {
-            if (item.Id != 0)
+            /*if (item.Id != 0)
             {
                 return database.UpdateAsync(item);
             }
             else
-            {
+            {*/
                 return database.InsertAsync(item);
-            }
+            //}
         }
     }
 }

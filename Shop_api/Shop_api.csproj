@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="localDbEntity\CategoryLocal.cs" />
     <Compile Include="Db\LocalDb.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Errors.cs" />

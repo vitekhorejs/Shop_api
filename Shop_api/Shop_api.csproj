@@ -107,6 +107,7 @@
     <Compile Include="Entities\Shared.cs" />
     <Compile Include="SomeId.cs" />
     <Compile Include="Entities\User2.cs" />
+    <Compile Include="Synchronize.cs" />
     <Compile Include="UserUpdate.cs" />
     <Page Include="Pages\OrderDetailPage.xaml">
       <SubType>Designer</SubType>

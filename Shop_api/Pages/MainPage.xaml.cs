@@ -22,6 +22,19 @@ namespace Shop_api
     public partial class MainPage : Page
     {
         //Category category = new Category();
+        private static LocalDb _database;
+        public static LocalDb Database
+        {
+            get
+            {
+                if (_database == null)
+                {
+                    var fileHelper = new FileHelper();
+                    _database = new LocalDb(fileHelper.GetLocalFilePath("database.db3"));
+                }
+                return _database;
+            }
+        }
         RestClient client = new RestClient(Shared.Url);
         public MainPage()
         {
@@ -53,6 +66,7 @@ namespace Shop_api
             bool InternetConnection = InternetAvailability.IsInternetAvailable();
             if (InternetConnection == true)
             {
+                //Synchronize.SyncCategories();
                 var request = new RestRequest(Method.GET);
                 request.AddParameter("Type", "get_categories");
                 request.AddParameter("Data", "ahoj");
@@ -65,10 +79,16 @@ namespace Shop_api
                 //Categories categories = SimpleJson.DeserializeObject<Categories>(responseInput.Data);
                 List<Category> categories = SimpleJson.DeserializeObject<List<Category>>(responseInput.Data);
                 ListBoxCategories.ItemsSource = categories;
+                foreach (Category katgorie in categories)
+                {
+                    Database.SaveItemAsync(katgorie);
+                }
             } else
             {
                 //MessageBox.Show("OFFLINE Režim", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
                 InternetStatus.Visibility = Visibility.Visible;
+                var itemsFromDb = Database.GetCategoriesAsync().Result;
+                ListBoxCategories.ItemsSource = itemsFromDb;
             }
         }
         

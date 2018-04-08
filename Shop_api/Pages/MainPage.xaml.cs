@@ -43,7 +43,7 @@ namespace Shop_api
             ShowCategories();
             //DataContext = category; 
         }
-        
+
         public void IsLogged()
         {
             if (Shared.Logged)
@@ -53,7 +53,8 @@ namespace Shop_api
                 USER.Content = Shared.LoggedUserMail;
                 LoginPanel.Visibility = Visibility.Hidden;
                 Info.Visibility = Visibility.Hidden;
-            } else
+            }
+            else
             {
                 UserPanel.Visibility = Visibility.Hidden;
                 LoginPanel.Visibility = Visibility.Visible;
@@ -83,7 +84,8 @@ namespace Shop_api
                 {
                     Database.SaveItemAsync(katgorie);
                 }
-            } else
+            }
+            else
             {
                 //MessageBox.Show("OFFLINE Režim", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
                 InternetStatus.Visibility = Visibility.Visible;
@@ -91,7 +93,7 @@ namespace Shop_api
                 ListBoxCategories.ItemsSource = itemsFromDb;
             }
         }
-        
+
         private void Register_Button(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new RegisterPage());

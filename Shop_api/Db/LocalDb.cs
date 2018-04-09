@@ -17,6 +17,11 @@ namespace Shop_api
             database.CreateTableAsync<CategoryLocal>().Wait();
         }
 
+        public Task<int> SaveItemAsync(List<CategoryLocal> items)
+        {
+            return database.InsertAllAsync(items);
+        }
+
         public Task<List<CategoryLocal>> GetCategoriesAsync()
         {
             return database.Table<CategoryLocal>().ToListAsync();
@@ -32,5 +37,11 @@ namespace Shop_api
                 return database.InsertAsync(item);
             //}
         }
+        public async Task Remake()
+        {
+            await database.DropTableAsync<CategoryLocal>();
+            await database.CreateTableAsync<CategoryLocal>();
+        }
     }
+
 }

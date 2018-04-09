@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RestSharp;
+using System.Net;
+using System.IO;
 
 namespace Shop_api
 {
@@ -62,42 +64,50 @@ namespace Shop_api
             }
 
         }
-        private void ShowCategories()
-        {
-            bool InternetConnection = InternetAvailability.IsInternetAvailable();
-            if (InternetConnection == true)
-            {
-                //Synchronize.SyncCategories();
-                var request = new RestRequest(Method.GET);
-                request.AddParameter("Type", "get_categories");
-                request.AddParameter("Data", "ahoj");
-                var response = client.Execute<Input>(request);
-                //List categories = response.Data.Data;
-                //string kategorie = response.Data.Data; 
-                //MessageBox.Show(response.Content, "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
-                Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
-                //MessageBox.Show(responseInput.Data, "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
-                //Categories categories = SimpleJson.DeserializeObject<Categories>(responseInput.Data);
-                List<Category> categories = SimpleJson.DeserializeObject<List<Category>>(responseInput.Data);
-                ListBoxCategories.ItemsSource = categories;
-                foreach (Category katgorie in categories)
-                {
-                    CategoryLocal kat = new CategoryLocal();
-                    kat.Id = katgorie.Id;
-                    kat.Name = katgorie.Name;
-                    kat.Description = katgorie.Description;
-                    kat.Image_path = katgorie.Image_path;
-                    Database.SaveItemAsync(kat);
-                }
 
-            }
-            else
+        private async void ShowCategories()
+        {
+            /*try
+            {*/
+                bool InternetConnection = InternetAvailability.IsInternetAvailable();
+                if (InternetConnection == true)
+                {
+                    //Synchronize.SyncCategories();
+                    var request = new RestRequest(Method.GET);
+                    request.AddParameter("Type", "get_categories");
+                    request.AddParameter("Data", "ahoj");
+                    var response = client.Execute<Input>(request);
+                    Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
+                    List<Category> categories = SimpleJson.DeserializeObject<List<Category>>(responseInput.Data);
+                    ListBoxCategories.ItemsSource = categories;
+                    await Database.Remake();
+                    List<CategoryLocal> localCategories = new List<CategoryLocal>();
+                    Directory.CreateDirectory("Images");
+                    foreach (Category katgorie in categories)
+                    {
+                        CategoryLocal kat = new CategoryLocal();
+                        kat.Id = katgorie.Id;
+                        kat.Name = katgorie.Name;
+                        kat.Description = katgorie.Description;
+                        kat.Image_path = AppDomain.CurrentDomain.BaseDirectory + katgorie.Relative_Image_Path;
+                        WebClient client = new WebClient();
+                        client.DownloadFile(katgorie.Image_path, katgorie.Relative_Image_Path);
+                        localCategories.Add(kat);
+                    }
+                    await Database.SaveItemAsync(localCategories);
+                }
+                else
+                {
+                    //MessageBox.Show("OFFLINE Režim", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    InternetStatus.Visibility = Visibility.Visible;
+                    var itemsFromDb = await Database.GetCategoriesAsync();
+                    ListBoxCategories.ItemsSource = itemsFromDb;
+                }
+            /*}
+            catch(Exception e)
             {
-                //MessageBox.Show("OFFLINE Režim", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
-                InternetStatus.Visibility = Visibility.Visible;
-                var itemsFromDb = Database.GetCategoriesAsync().Result;
-                ListBoxCategories.ItemsSource = itemsFromDb;
-            }
+
+            }*/
         }
 
         private void Register_Button(object sender, RoutedEventArgs e)

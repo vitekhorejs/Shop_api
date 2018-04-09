@@ -21,6 +21,19 @@ namespace Shop_api
     /// </summary>
     public partial class CategoryPage : Page
     {
+        private static LocalDb _database;
+        public static LocalDb Database
+        {
+            get
+            {
+                if (_database == null)
+                {
+                    var fileHelper = new FileHelper();
+                    _database = new LocalDb(fileHelper.GetLocalFilePath("database.db3"));
+                }
+                return _database;
+            }
+        }
         RestClient client = new RestClient(Shared.Url);
         public CategoryPage(Category category)
         {
@@ -55,18 +68,29 @@ namespace Shop_api
                 this.NavigationService.GoBack();
             }
         }
-        private void ShowItems()
+        private async void ShowItems()
         {
-            var request = new RestRequest(Method.GET);
-            request.AddParameter("Type", "get_items_by_category");
-            //Array categoryId = ["Category_id"][kategorie.Id];
-            request.AddParameter("Data", SimpleJson.SerializeObject(kategorie));
-            //MessageBox.Show(SimpleJson.SerializeObject(kategorie), "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
-            var response = client.Execute<Input>(request);
-            Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
-            List<Item> items = SimpleJson.DeserializeObject<List<Item>>(responseInput.Data);
-            ListBoxItems.ItemsSource = items;
-            CategoryName.Content = kategorie.Name;
+            bool InternetConnection = InternetAvailability.IsInternetAvailable();
+            if (InternetConnection == true)
+            {
+                var request = new RestRequest(Method.GET);
+                request.AddParameter("Type", "get_items_by_category");
+                //Array categoryId = ["Category_id"][kategorie.Id];
+                request.AddParameter("Data", SimpleJson.SerializeObject(kategorie));
+                //MessageBox.Show(SimpleJson.SerializeObject(kategorie), "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                var response = client.Execute<Input>(request);
+                Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
+                List<Item> items = SimpleJson.DeserializeObject<List<Item>>(responseInput.Data);
+                ListBoxItems.ItemsSource = items;
+                CategoryName.Content = kategorie.Name;
+            }
+            else
+            {
+                InternetStatus.Visibility = Visibility.Visible;
+                var itemsFromDb = await Database.GetCategoriesAsync();
+                ListBoxItems.ItemsSource = itemsFromDb;
+            }
+
         }
 
         private void User_Clicked(object sender, RoutedEventArgs e)

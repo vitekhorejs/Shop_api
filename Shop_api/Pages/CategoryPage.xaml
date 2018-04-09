@@ -40,6 +40,8 @@
         <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Left" VerticalAlignment="Center"   Margin="25,0,0,0">
             <Hyperlink NavigateUri="MainPage.xaml" FontSize="22" FontWeight="Bold" Background="#00000000" Foreground="#FFDEDEDE" TextDecorations="None" >Superkomp.cz </Hyperlink>
         </TextBlock>
+        <Label x:Name="InternetStatus" Visibility="Hidden" Content="OFFLINE Režim" FontSize="18" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FFD80505" BorderBrush="Black" ></Label>
+
         <Button Grid.Column="0" Grid.Row="1" Content="Zpět" Width="35" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0" Click="Back_Click"></Button>
         <Label x:Name="CategoryName" Content="" FontSize="30"  Margin="60,-5,0,0" Grid.Column="0" Grid.Row="1"></Label>
         <Label x:Name="Info" Content="*Pro možnost nákupu se nejdříve přihlašte. Bez příhlášení je dostupné pouze prohlížení položek." FontSize="9"  Margin="20,-5,0,0" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using RestSharp;
+using System.Web.Script.Serialization;
 
 namespace Shop_api
 {
@@ -21,6 +23,14 @@ namespace Shop_api
             set
             {
                 this._Image_path = value;
+            }
+        }
+        [ScriptIgnore]
+        public string Relative_Image_Path
+        {
+            get
+            {
+                return _Image_path;
             }
         }
 

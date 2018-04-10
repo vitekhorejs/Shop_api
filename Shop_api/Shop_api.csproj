@@ -93,6 +93,7 @@
     <Compile Include="Db\FileHelper.cs" />
     <Compile Include="ItemNevim.cs" />
     <Compile Include="ItemNevim2.cs" />
+    <Compile Include="localDbEntity\ItemLocal.cs" />
     <Compile Include="Pages\OrderDetailPage.xaml.cs">
       <DependentUpon>OrderDetailPage.xaml</DependentUpon>
     </Compile>

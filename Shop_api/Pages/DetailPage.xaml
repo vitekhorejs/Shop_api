@@ -19,9 +19,9 @@
         <Rectangle Fill="#FF31648F" IsHitTestVisible="False" Grid.Column="0" Grid.Row="0"/>
         <Grid x:Name="LoginPanel" Margin="472,0,0,0" Visibility="Hidden">
             <TextBlock Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5,5,5,5">
-                <Hyperlink NavigateUri="LoginPage.xaml"   Foreground="#000000" TextDecorations="None" >Přihlásit </Hyperlink>
+                <Hyperlink x:Name="loginbutton" NavigateUri="LoginPage.xaml"   Foreground="#000000" TextDecorations="None" >Přihlásit </Hyperlink>
                 <Label></Label>
-                <Hyperlink NavigateUri="RegisterPage.xaml"   Foreground="#000000" TextDecorations="None"  >Registrovat </Hyperlink>
+                <Hyperlink x:Name="registerbutton" NavigateUri="RegisterPage.xaml"   Foreground="#000000" TextDecorations="None"  >Registrovat </Hyperlink>
             </TextBlock>
         </Grid>
 

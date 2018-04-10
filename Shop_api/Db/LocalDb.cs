@@ -15,32 +15,41 @@ namespace Shop_api
         {
             database = new SQLiteAsyncConnection(dbPath);
             database.CreateTableAsync<CategoryLocal>().Wait();
+            database.CreateTableAsync<ItemLocal>().Wait();
+
         }
 
-        public Task<int> SaveItemAsync(List<CategoryLocal> items)
+        public Task<int> SaveCategoriesAsync(List<CategoryLocal> items)
         {
             return database.InsertAllAsync(items);
         }
+
+        public Task<int> SaveItemsAsync(List<ItemLocal> items)
+        {
+            return database.InsertAllAsync(items);
+        }
+        
 
         public Task<List<CategoryLocal>> GetCategoriesAsync()
         {
             return database.Table<CategoryLocal>().ToListAsync();
         }
-        public Task<int> SaveItemAsync(CategoryLocal item)
+        public Task<List<ItemLocal>> GetItemsByIdAsync(int Category_id)
         {
-            /*if (item.Id != 0)
-            {
-                return database.UpdateAsync(item);
-            }
-            else
-            {*/
-                return database.InsertAsync(item);
-            //}
+            //return database.Table<ItemLocal>().ToListAsync();
+            return database.Table<ItemLocal>().Where(i => i.Category_id == Category_id).ToListAsync();
         }
+        /*public Task<int> SaveItemAsync(CategoryLocal item)
+        {
+            return database.InsertAsync(item);
+        }*/
         public async Task Remake()
         {
             await database.DropTableAsync<CategoryLocal>();
+            await database.DropTableAsync<ItemLocal>();
             await database.CreateTableAsync<CategoryLocal>();
+            await database.CreateTableAsync<ItemLocal>();
+
         }
     }
 

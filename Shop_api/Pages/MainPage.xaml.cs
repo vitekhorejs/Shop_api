@@ -42,10 +42,19 @@ namespace Shop_api
         {
             InitializeComponent();
             IsLogged();
+            bool InternetConnection = InternetAvailability.IsInternetAvailable();
+            if (InternetConnection != true)
+            {
+                OfflineUI();
+            }
             ShowCategories();
             //DataContext = category; 
         }
-
+        public void OfflineUI()
+        {
+            loginbutton.IsEnabled = false;
+            registerbutton.IsEnabled = false;
+        }
         public void IsLogged()
         {
             if (Shared.Logged)
@@ -67,47 +76,25 @@ namespace Shop_api
 
         private async void ShowCategories()
         {
-            /*try
-            {*/
-                bool InternetConnection = InternetAvailability.IsInternetAvailable();
-                if (InternetConnection == true)
-                {
-                    //Synchronize.SyncCategories();
-                    var request = new RestRequest(Method.GET);
-                    request.AddParameter("Type", "get_categories");
-                    request.AddParameter("Data", "ahoj");
-                    var response = client.Execute<Input>(request);
-                    Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
-                    List<Category> categories = SimpleJson.DeserializeObject<List<Category>>(responseInput.Data);
-                    ListBoxCategories.ItemsSource = categories;
-                    await Database.Remake();
-                    List<CategoryLocal> localCategories = new List<CategoryLocal>();
-                    Directory.CreateDirectory("Images");
-                    foreach (Category katgorie in categories)
-                    {
-                        CategoryLocal kat = new CategoryLocal();
-                        kat.Id = katgorie.Id;
-                        kat.Name = katgorie.Name;
-                        kat.Description = katgorie.Description;
-                        kat.Image_path = AppDomain.CurrentDomain.BaseDirectory + katgorie.Relative_Image_Path;
-                        WebClient client = new WebClient();
-                        client.DownloadFile(katgorie.Image_path, katgorie.Relative_Image_Path);
-                        localCategories.Add(kat);
-                    }
-                    await Database.SaveItemAsync(localCategories);
-                }
-                else
-                {
-                    //MessageBox.Show("OFFLINE Režim", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    InternetStatus.Visibility = Visibility.Visible;
-                    var itemsFromDb = await Database.GetCategoriesAsync();
-                    ListBoxCategories.ItemsSource = itemsFromDb;
-                }
-            /*}
-            catch(Exception e)
+            bool InternetConnection = InternetAvailability.IsInternetAvailable();
+            if (InternetConnection == true)
             {
-
-            }*/
+                //Synchronize.SyncCategories();
+                var request = new RestRequest(Method.GET);
+                request.AddParameter("Type", "get_categories");
+                request.AddParameter("Data", "ahoj");
+                var response = client.Execute<Input>(request);
+                Input responseInput = SimpleJson.DeserializeObject<Input>(response.Content);
+                List<Category> categories = SimpleJson.DeserializeObject<List<Category>>(responseInput.Data);
+                ListBoxCategories.ItemsSource = categories;
+            }
+            else
+            {
+                //MessageBox.Show("OFFLINE Režim", "Upozornění", MessageBoxButton.OK, MessageBoxImage.Warning);
+                InternetStatus.Visibility = Visibility.Visible;
+                var itemsFromDb = await Database.GetCategoriesAsync();
+                ListBoxCategories.ItemsSource = itemsFromDb;
+            }
         }
 
         private void Register_Button(object sender, RoutedEventArgs e)
@@ -141,8 +128,21 @@ namespace Shop_api
             kategorie = sender as Category;*/
             var grid = sender as Grid;
             ListBoxCategories.SelectedItem = grid.DataContext;
-            Category selectedItem = ListBoxCategories.SelectedItem as Category;
-            this.NavigationService.Navigate(new CategoryPage(selectedItem));
+            bool InternetConnection = InternetAvailability.IsInternetAvailable();
+            if (InternetConnection == true)
+            {
+                Category selectedItem = ListBoxCategories.SelectedItem as Category;
+                this.NavigationService.Navigate(new CategoryPage(selectedItem));
+            } else
+            {
+                CategoryLocal selectedItem = ListBoxCategories.SelectedItem as CategoryLocal;
+                Category kategorie = new Category();
+                kategorie.Id = selectedItem.Id;
+                kategorie.Name = selectedItem.Name;
+                kategorie.Image_path = selectedItem.Image_path;
+                kategorie.Description = selectedItem.Description;
+                this.NavigationService.Navigate(new CategoryPage(kategorie));
+            }
 
         }
         /*private void showsessionid(object sender, RoutedEventArgs e)

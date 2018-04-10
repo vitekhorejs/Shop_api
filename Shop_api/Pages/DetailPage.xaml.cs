@@ -26,8 +26,19 @@ namespace Shop_api
         {
             InitializeComponent();
             IsLogged();
+            bool InternetConnection = InternetAvailability.IsInternetAvailable();
+            if (InternetConnection != true)
+            {
+                OfflineUI();
+            }
             item = selectedItem;
             ShowDetailedItem();
+        }
+        public void OfflineUI()
+        {
+            loginbutton.IsEnabled = false;
+            registerbutton.IsEnabled = false;
+            BuyButton.IsEnabled = false;
         }
         Item item = new Item();
         public void IsLogged()
@@ -51,7 +62,17 @@ namespace Shop_api
             Name.Content = item.Name;
             BitmapImage logo = new BitmapImage();
             logo.BeginInit();
-            logo.UriSource = new Uri(item.Image_path);
+            bool InternetConnection = InternetAvailability.IsInternetAvailable();
+            if (InternetConnection == true)
+            {
+                logo.UriSource = new Uri(item.Image_path);
+            }
+            else
+            {
+                logo.UriSource = new Uri(item.Relative_Image_Path);
+
+            }
+            //logo. = item.Image_path;
             logo.EndInit();
             Image.Source = logo;
             Price.Content = item.Price;

@@ -39,8 +39,18 @@ namespace Shop_api
         {
             InitializeComponent();
             IsLogged();
+            bool InternetConnection = InternetAvailability.IsInternetAvailable();
+            if (InternetConnection != true)
+            {
+                OfflineUI();
+            }
             kategorie = category;
             ShowItems();
+        }
+        public void OfflineUI()
+        {
+            loginbutton.IsEnabled = false;
+            registerbutton.IsEnabled = false;
         }
         Category kategorie = new Category();
         public void IsLogged()
@@ -87,7 +97,7 @@ namespace Shop_api
             else
             {
                 InternetStatus.Visibility = Visibility.Visible;
-                var itemsFromDb = await Database.GetCategoriesAsync();
+                var itemsFromDb = await Database.GetItemsByIdAsync(kategorie.Id);
                 ListBoxItems.ItemsSource = itemsFromDb;
             }
 
@@ -115,9 +125,26 @@ namespace Shop_api
         {
             var grid = sender as Grid;
             ListBoxItems.SelectedItem = grid.DataContext;
-            Item selectedItem = ListBoxItems.SelectedItem as Item;
-            //MessageBox.Show(selectedItem.Name, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-            this.NavigationService.Navigate(new DetailPage(selectedItem));
+            bool InternetConnection = InternetAvailability.IsInternetAvailable();
+            if (InternetConnection == true)
+            {
+                Item selectedItem = ListBoxItems.SelectedItem as Item;
+                //MessageBox.Show(selectedItem.Name, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.NavigationService.Navigate(new DetailPage(selectedItem));
+            }
+            else
+            {
+                ItemLocal selectedItem = ListBoxItems.SelectedItem as ItemLocal;
+                Item localitem = new Item();
+                localitem.Id = selectedItem.Id;
+                localitem.Name = selectedItem.Name;
+                localitem.Description = selectedItem.Description;
+                localitem.Category_id = selectedItem.Category_id;
+                localitem.Image_path = selectedItem.Image_path;
+                localitem.Price = selectedItem.Price;
+                localitem.Quantity = selectedItem.Quantity;
+                this.NavigationService.Navigate(new DetailPage(localitem));
+            }
         }
     }
 }
